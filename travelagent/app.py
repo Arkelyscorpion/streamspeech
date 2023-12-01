@@ -38,4 +38,5 @@ def server(input, output,session):
     def text_response():
         response = palm.generate_text(prompt = res())
         out = response.result.split("\n")
+        return out 
 app = App(app_ui, server)
