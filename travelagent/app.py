@@ -1,32 +1,35 @@
 import google.generativeai as palm
 import os 
-from pathlib import Path 
-import numpy as np 
-import pandas as pd 
-import matplotlib.pyplot as plt 
-import pyttsx3 
 from shiny import ui, render, App, reactive 
+from shinyswatch import theme_picker_ui, theme_picker_server 
 
-# Design Spec 
-# We need a text field to input user input 
-# Need a button to allow text generation 
+# TODO: UI styling, better error handling to show some form of notification to the user 
 app_ui = ui.page_fluid(
+    theme_picker_ui(), 
     ui.layout_sidebar(
-        ui.panel_sidebar(
-        ui.input_text("user_prompt", "Ask me something"),
-        ui.input_action_button("ok_go", "OK")
-        ),
-        ui.panel_main(
-        ui.output_text("text_response")
+    ui.sidebar(
+
+    ui.input_text_area("user_prompt", "", placeholder="Type here", autoresize = True),
+    ui.input_action_button("ok_go", "Run"), 
+
+
+    ), 
+
+    ui.output_text_verbatim("text_response")
+
+    )
+            
     )
 
 
-    ) 
-    
-)
-
 def server(input, output,session):
-    palm.configure(api_key = os.environ["google_key"])
+    theme_picker_server()
+    try: 
+        # TODO: Disable this welcome message from the API
+        # TODO: Restrict the range of topics supported 
+        palm.configure(api_key = os.environ["google_key"])
+    except KeyError:
+        raise KeyError("This app requires an API Key named 'google_key' in your environment. Get one at https://developers.generativeai.google/tutorials/setup")
     res = reactive.Value("Welcome to our chat bot, friend. Have fun")
     @reactive.Effect 
     @reactive.event(input.ok_go)
@@ -35,8 +38,10 @@ def server(input, output,session):
 
     @output 
     @render.text
-    def text_response():
-        response = palm.generate_text(prompt = res())
-        out = response.result.split("\n")
+    async def text_response():
+        with ui.Progress(min = 1, max = 20) as p:
+            p.set(message="Thinking", detail="This may take a while, please wait")
+            response = palm.generate_text(prompt = res())
+            out = response.result
         return out 
 app = App(app_ui, server)
