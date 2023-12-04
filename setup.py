@@ -15,5 +15,5 @@ setup(name='streamspeech',
       long_description=open('README.md', encoding="utf-8").read(),
       long_description_content_type='text/markdown',
       install_requires=[],
-      python_requires='>=3.8',
+      python_requires='>=3.9',
       zip_safe=False)
