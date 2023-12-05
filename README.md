@@ -14,7 +14,7 @@
 
 
 
-`streamspeech` aims to find all outdated URLs in a given file and fix them. 
+`streamspeech` combines the best of generative 'AI' with GAN based speech synthesis and `streamlit` web development. Check it out now!
 
 
 **Features List**
@@ -25,7 +25,6 @@
 
 - [ ] Custom user voices 
 
-- [ ]
 
 
 
