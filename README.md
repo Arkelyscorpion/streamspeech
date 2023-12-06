@@ -17,7 +17,7 @@
 `streamspeech`: generative AI that talks!
 
 
-**Features List**
+## Features List
 
 - [x] Text to Speech
 
@@ -34,7 +34,7 @@
 
 
 
-**Installation**
+## Installation
 
 The simplest way to install the latest release is as follows:
 
@@ -67,6 +67,13 @@ pip install -e .
 
 ```
 
+## Usage 
+
+```python
+python -m streamspeech
+```
+
+The above will open a web browser with the app. NOTE: At the moment, one needs to sign up for an API Key to use this app. 
 
 Acknowledgements
 
