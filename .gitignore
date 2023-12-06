@@ -161,8 +161,10 @@ cython_debug/
 .DS_Store
 tmpdir_vodoer/*
 tmp_dir_tts/*
+streamspeech/tmpdir_vocoder
+streamspeech/tmpdir_tts 
+tmpdir_tts
 tmpdir_vocoder
-tmpdir_tts 
 ./**/*.scratch.*
 notebooks/*
 notebooks/
