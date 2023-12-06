@@ -4,7 +4,7 @@ import google.generativeai as palm
 import os 
 from time import sleep 
 import numpy as np 
-# TODO: Solve issue with startup error message -> possible workaround is sleep 
+from joblib import Parallel, delayed 
 
 def get_model():
     hifi_gan = HIFIGAN.from_hparams(source="speechbrain/tts-hifigan-ljspeech", savedir="tmpdir_vocoder")
@@ -27,7 +27,6 @@ def prompt_palm(user_prompt):
 def text_to_speech(palm_response):
     hifi_gan, tacotron2 = get_model()
     output_, _, _ = tacotron2.encode_text(palm_response)
-    # Running Vocoder (spectrogram-to-waveform)
     waveforms = hifi_gan.decode_batch(output_)
     return waveforms 
 
@@ -38,13 +37,24 @@ def get_audio_waveform(res):
             continue
         hifi_gan, tacotron2 = get_model()
         mel_output, mel_length, alignment = tacotron2.encode_text(response)
-        # Running Vocoder (spectrogram-to-waveform)
         waveforms = hifi_gan.decode_batch(mel_output)
         audios.append(waveforms.squeeze(1))
     return audios
 
+def get_waveform(res):
+    hifi_gan, tacotron2 = get_model()
+    mel_output, mel_length, alignment = tacotron2.encode_text(res)
+    return hifi_gan.decode_batch(mel_output).squeeze(1)
+
 def merge_audio(audio_list):
     return np.column_stack(audio_list) 
+
+def process_audio(res):
+    audios = Parallel(n_jobs = 4, backend="threading")(delayed(get_waveform)(x) for x in res if x)
+    return merge_audio(audios)
+
+
+
 
 def os_tts(palm_response):
     return os.system(f"say {palm_response}")
@@ -56,8 +66,9 @@ def play_audio(tts_response,  **kwargs):
 
 def main():
     configure_palm()
-    audio_res = merge_audio(get_audio_waveform(prompt_palm(get_text()).split("\n")))
-    sample_rate = st.slider("Sample Rate", min_value = 16000, max_value = 40000, value = 30000, step = 20)
+    with st.spinner("Processing your input, please wait...."):
+        audio_res = process_audio(prompt_palm(get_text()).split("\n"))
+    sample_rate = st.slider("Sample Rate", min_value = 16000, max_value = 40000, value = 22050, step = 20)
     return play_audio(audio_res, sample_rate = sample_rate)
 
 if __name__=="__main__":

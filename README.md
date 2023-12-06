@@ -14,7 +14,7 @@
 
 
 
-`streamspeech` combines the best of generative 'AI' with GAN based speech synthesis and `streamlit` web development. Check it out now!
+`streamspeech`: generative AI that talks!
 
 
 **Features List**
@@ -24,6 +24,10 @@
 - [ ] Speech to Text 
 
 - [ ] Custom user voices 
+
+- [ ] API Free Development (local LLM or text generation model)
+
+- [ ] Image to text to speech 
 
 
 
@@ -64,18 +68,22 @@ pip install -e .
 ```
 
 
+Acknowledgements
+
+`streamspeech` is made possible by the [`PaLM` API](https://developers.generativeai.google/), [speechbrain](https://speechbrain.github.io/) by NVIDIA, and [`streamlit`](https://streamlit.io/)
+
 
 To report any issues, suggestions or improvement, please do so at [issues](https://github.com/Nelson-Gon/streamspeech/issues). 
 
 If you would like to cite this work, please use:
 
-Nelson Gonzabato (2023) streamspeech: Check and Fix Outdated URLs https://github.com/Nelson-Gon/streamspeech
+Nelson Gonzabato (2023) streamspeech: Generative AI that talks! https://github.com/Nelson-Gon/streamspeech
 
 
 **Thank you very much**. 
 
 
-> “Before software can be reusable it first has to be usable.” – Ralph Johnson
+> “Ideas come and go, stories stay” – NNT, The Black Swan 
 
 
 
