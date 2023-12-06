@@ -65,6 +65,7 @@ def play_audio(tts_response,  **kwargs):
 
 
 def main():
+    st.set_page_config(title="streamspeech", page_icon=":brain:")
     configure_palm()
     with st.spinner("Processing your input, please wait...."):
         audio_res = process_audio(prompt_palm(get_text()).split("\n"))
