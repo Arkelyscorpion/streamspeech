@@ -161,7 +161,8 @@ cython_debug/
 .DS_Store
 tmpdir_vodoer/*
 tmp_dir_tts/*
-
+tmpdir_vocoder
+tmpdir_tts 
 ./**/*.scratch.*
 notebooks/*
 notebooks/
