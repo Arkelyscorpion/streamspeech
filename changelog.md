@@ -1,4 +1,7 @@
 # Changes to streamspeech
+* Version: 2023.12.06
+- Fixed issue with installs not installing dependencies as well
+- Removed files not needed for the app 
 * Version: 2023.12.03
 - Now runnable as a module 
 - Changed the page title and icon 
