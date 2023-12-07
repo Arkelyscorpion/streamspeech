@@ -2,7 +2,7 @@
 
 [![PyPI version fury.io](https://badge.fury.io/py/streamspeech.svg)](https://pypi.python.org/pypi/streamspeech/)
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) 
-![Test-Package](https://github.com/Nelson-Gon/streamspeech/workflows/Test-Package/badge.svg)
+[![Build Package](https://github.com/Nelson-Gon/streamspeech/actions/workflows/build-package.yaml/badge.svg)](https://github.com/Nelson-Gon/streamspeech/actions/workflows/build-package.yaml)
 [![PyPI license](https://img.shields.io/pypi/l/streamspeech.svg)](https://pypi.python.org/pypi/streamspeech/)
 [![Total Downloads](https://pepy.tech/badge/streamspeech)](https://pepy.tech/project/streamspeech)
 [![Monthly Downloads](https://pepy.tech/badge/streamspeech/month)](https://pepy.tech/project/streamspeech)
