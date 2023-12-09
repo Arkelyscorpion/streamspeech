@@ -3,31 +3,19 @@ import os
 from shiny import ui, render, App, reactive, req 
 from shinyswatch import theme_picker_ui, theme_picker_server 
 from IPython.display import Audio, display 
-import torchaudio
 from speechbrain.pretrained import HIFIGAN, Tacotron2 
-from shinywidgets import output_widget, register_widget
-from ipywidgets import Play 
+from shinywidgets import output_widget
 
 
 # TODO: UI styling, better error handling to show some form of notification to the user 
 app_ui = ui.page_fluid(
     theme_picker_ui(), 
     ui.layout_sidebar(
-    ui.sidebar(
-
-    ui.input_text_area("user_prompt", "", placeholder="Type here", autoresize = True),
-    ui.input_action_button("ok_go", "Run"), 
-    # ui.input_action_button("stop", "Stop Speech"),
-    output_widget("audio_player")
-    # ui.output_ui("audio_player")
-
-
-    ), 
-
-    ui.output_text_verbatim("text_response")
-
-    )
-            
+        ui.sidebar(
+        ui.input_text_area("user_prompt", "", placeholder="Type here", autoresize = True),
+        ui.input_action_button("ok_go", "Run"), 
+        output_widget("audio_player")), 
+    ui.output_text_verbatim("text_response"))
     )
 
 
@@ -58,7 +46,7 @@ def server(input, output,session):
             p.set(message="Thinking", detail="This may take a while, please wait")
             out = result()
         return out
-
+    
     # @reactive.event(result())
     def play_audio(response):
     # TODO: Change the kind of command used to say words depending on the OS 
@@ -70,23 +58,17 @@ def server(input, output,session):
         # proc = Popen(["say", response, "&"])
         return display(Audio(waveforms.numpy()[0], rate = 30000))
     # register_widget("audio_player", play_audio)
-   
 
     @reactive.event(input.stop)
     def _():
         return play_audio().terminate()
-
     
-
-
     @reactive.Effect
     @reactive.event(input.ok_go)
     def _():
         ui.insert_ui(
                   ui.tags.html(
-      
             #     src = req(play_audio(result()))
-
             # ), 
             # selector="speech",
             # where = "afterEnd",
